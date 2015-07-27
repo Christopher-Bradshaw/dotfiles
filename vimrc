@@ -79,7 +79,6 @@ ca tn tabnew
 ca t TEX
 
 " Saving is hard
-ca 2 w
 ca m make
 
 " spellcheck
