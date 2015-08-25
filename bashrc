@@ -5,6 +5,8 @@ if [ -f /etc/bashrc ]; then
 . /etc/bashrc
 fi
 
+export VISUAL=vim
+export EDITOR="$VISUAL"
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 alias cpb-do="ssh christopher@162.243.78.207"
@@ -38,9 +40,25 @@ alias n="nautilus . > /dev/null"
 alias hint="git diff --name-only | xargs coffee-jshint --default-options-off --options eqnull,expr,shadow,sub,multistr"
 alias lint='git diff --name-only | xargs coffeelint -f /Users/christopher/code/coffeescript-style-guide/coffeelint-config.json'
 
-parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+function git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
-export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
+# http://unix.stackexchange.com/questions/88307/escape-sequences-with-echo-e-in-different-shells
+function markup_git_branch {
+  if [[ "x$1" = "x" ]]; then
+    echo -e "[$1]"
+  else
+    if [[ $(git status 2> /dev/null | tail -n1) = "nothing to commit, working directory clean" ]]; then
+      echo -e '\033[1;32m['"$1"']\033[0;30m'
+    else
+      echo -e '\033[1;31m['"$1"'*]\033[0;30m'
+    fi
+  fi
+}
+export PS1='\u \[\033[0;34m\]\W\[\033[0m\] $(markup_git_branch $(git_branch))$ '
 
 alias t="tmux"
+
+alias g="cd /home/vagrant/go/src/github.com/Clever"
+alias c="cd /home/vagrant/code"
+
