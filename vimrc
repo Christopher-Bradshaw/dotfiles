@@ -8,26 +8,29 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " Used
 Plugin 'gmarik/Vundle.vim'
+" Language specific
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'digitaltoad/vim-jade'
+Plugin 'groenewege/vim-less'
+Plugin 'fatih/vim-go'
 "Plugin 'vim-scripts/AutomaticLaTexPlugin'
 "Plugin 'lervag/vimtex'
-Plugin 'groenewege/vim-less'
 Plugin 'suan/vim-instant-markdown'
+
+" General
 Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'fatih/vim-go'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " Not used
-Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/Gundo'
 " Get? 
-" ControlP
+" ControlP, unimpaired
 call vundle#end()
 
 filetype plugin indent on
-" would be nice if we could disable this for .md files
 syntax on
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown syntax=off
 
@@ -35,7 +38,6 @@ let mapleader=','
 set noerrorbells
 set novisualbell
 
-" Look back at this in a bit
 set relativenumber
 set number
 
@@ -43,6 +45,7 @@ set autoindent
 set expandtab
 set tabstop=2
 set shiftwidth=2
+autocmd BufNewFile,BufReadPost *.go set shiftwidth=4 tabstop=4
 
 set scrolloff=5
 set cmdheight=2
@@ -57,7 +60,6 @@ highlight Search cterm=NONE ctermfg=Grey ctermbg=Red
 
 set foldmethod=syntax
 set foldlevelstart=20
-
 
 " mappings
 map Y y$
@@ -76,10 +78,7 @@ noremap , ;
 " colon commands
 ca tn tabnew
 " This compiles the latex file
-ca t TEX
-
-" Saving is hard
-ca m make
+" ca t TEX
 
 " spellcheck
 ca spell setlocal spell spelllang=en_us
@@ -88,23 +87,30 @@ highlight clear SpellBad
 highlight SpellBad ctermbg=Green
 
 " Create splits
-nnoremap <C-W><C-H> sp
-
 " move between splits
 " remember that it is :vsp filename to open a file in a v split
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " Force me to use hjkl
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Right> <Nop>
 noremap <Left> <Nop>
+noremap <leader>j J
+noremap <leader>k K
+noremap J 10j
+noremap K 10k
 
 " Shortcut sup and spuer script on md
 ca ss %s/_{/<sub>/eg \| %s/_}/<\/sub>/eg \| %s/\^{/<sup>/eg \| %s/\^}/<\/sup>/eg
 
-" zeal
-:nnoremap gz :!zeal --query "<cword>"&<CR><CR>
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+noremap <LEADER>m :lnext
+
+let g:syntastic_javascript_checkers = ['jsxhint']

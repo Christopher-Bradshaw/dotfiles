@@ -56,9 +56,12 @@ function markup_git_branch {
   fi
 }
 export PS1='\u \[\033[0;34m\]\W\[\033[0m\] $(markup_git_branch $(git_branch))$ '
+export PS1='\u \[\033[0;34m\]\W\[\033[0m\] $(git_branch)$ '
+
 
 alias t="tmux"
 
 alias g="cd /home/vagrant/go/src/github.com/Clever"
 alias c="cd /home/vagrant/code"
-
+xclip="xclip -selection c"
+alias temp="curl -s  http://4ca.st/ajax.php?action=current\&zip=94103 | json current.temperature"
