@@ -4,6 +4,7 @@
 alias flash-do="ssh root@104.131.149.22"
 
 export GOPATH="/home/christopher/code/go"
+export GOROOT="/usr/local/go"
 
 # quick move to common places
 alias g="cd /home/christopher/code/go/src/github.com/christopher-bradshaw"
