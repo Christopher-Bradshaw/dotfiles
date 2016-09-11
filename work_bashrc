@@ -1,4 +1,3 @@
-
 # quick move to common places
 alias g="cd /home/vagrant/go/src/github.com/Clever"
 

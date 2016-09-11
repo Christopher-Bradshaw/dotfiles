@@ -7,7 +7,6 @@ fi
 
 # Source home definitions
 if [ -f /home/christopher/.dotfiles/home_bashrc ]; then
-  echo "YOLO"
   source /home/christopher/.dotfiles/home_bashrc
 fi
 
