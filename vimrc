@@ -101,7 +101,7 @@ set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 
-" don't hit shift all the pime
+" don't hit shift all the time
 noremap ; :
 
 " easy new tab
