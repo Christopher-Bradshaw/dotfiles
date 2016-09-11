@@ -1,0 +1,23 @@
+# Specific things for home computer
+
+# ssh places
+alias flash-do="ssh root@104.131.149.22"
+
+export GOPATH="/home/christopher/code/go"
+
+# quick move to common places
+alias g="cd /home/christopher/code/go/src/github.com/christopher-bradshaw"
+alias c="cd /home/christopher/code"
+
+# clip < file
+alias clip="xclip -selection clipboard"
+
+# files
+alias n="nautilus . > /dev/null"
+
+# Making little things better
+alias tor1="~/bin/tor-browser_en-US/start-tor-browser.desktop"
+alias python='echo "use python3"' # We are making the switch!
+alias xopen="xdg-open"
+alias shutdown="sudo shutdown -h now"
+alias rboot="sudo shutdown -r now"
