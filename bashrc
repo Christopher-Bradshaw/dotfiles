@@ -6,13 +6,14 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Source home definitions
-if [ -f ./home_bashrc ]; then
-  source home_bashrc
+if [ -f /home/christopher/.dotfiles/home_bashrc ]; then
+  echo "YOLO"
+  source /home/christopher/.dotfiles/home_bashrc
 fi
 
 # Source work definitions
-if [ -f ./work_bashrc ]; then
-  source work_bashrc
+if [ -f /home/vagrant/.dotfiles/work_bashrc ]; then
+  source /home/vagrant/.dotfiles/work_bashrc
 fi
 
 # C compilation and error checking
