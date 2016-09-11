@@ -18,15 +18,6 @@ alias valgrind2="valgrind --show-reachable=yes --leak-check=full"
 # Tor
 alias tor1="~/bin/tor-browser_en-US/start-tor-browser.desktop"
 
-# Making little things better
-alias python='python3' # We are making the switch!
-#alias pip2="pip-python"
-#alias pip3="python3-pip"
-alias xopen="xdg-open"
-alias casa="casapy --nologfile --colors=Linux"
-alias shutdown="sudo shutdown -h now"
-alias rboot="sudo shutdown -r now"
-
 # Little ls things
 alias la="ls -a"
 alias ll="ls -l"
@@ -41,6 +32,26 @@ alias lint='git diff --name-only | xargs coffeelint -f /Users/christopher/code/c
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
+export PS1="\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 alias t="tmux"
+alias g="cd /home/vagrant/go/src/github.com/Clever"
+
+# Use vim
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# History
+# Avoid duplicates
+export HISTCONTROL=ignoredups:erasedups
+
+export VISUAL=vim
+set -o vi
+vssh() {
+  # sshs in and sets -o vi, and VISUAL=vim
+  /usr/bin/ssh -t $1 " \
+      export VISUAL=vim && \
+      bash -o vi"
+}
+#alias ssh="vssh"
+source <(ark completions bash --no-upgrade)
