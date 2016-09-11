@@ -6,13 +6,13 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Source home definitions
-if [ -f ./home_bashrc]; then
-. ./home_bashrc
+if [ -f ./home_bashrc ]; then
+  source home_bashrc
 fi
 
 # Source work definitions
-if [ -f ./work_bashrc]; then
-. ./work_bashrc
+if [ -f ./work_bashrc ]; then
+  source work_bashrc
 fi
 
 # C compilation and error checking
