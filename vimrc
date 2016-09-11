@@ -1,3 +1,5 @@
+" TODO - try switch to buffers?
+
 set nocompatible
 set shell=/bin/bash
 filetype off
@@ -14,6 +16,9 @@ Plugin 'Valloric/YouCompleteMe'
 
 " Fuzzy file finder. Use this rather than command-t because simpler /shrug
 Plugin 'ctrlpvim/ctrlp.vim'
+
+" Find and replace
+Plugin 'dkprice/vim-easygrep'
 
 " easily comment things (gc<movement>)
 Plugin 'tpope/vim-commentary'
@@ -187,12 +192,26 @@ let g:syntastic_typescript_checkers = ['tslint']
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_by_filename = 1
 let g:ctrlp_map = '<leader>p'
+" default to open in
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 set wildignore+=*/vendor/*
 
 " nerdtree
-let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_open_on_console_startup = 0
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 " gundo
 nnoremap <Leader>g :GundoToggle<CR>
 let g:gundo_preview_bottom = 1
+
+" easygrep
+ca gr Grep
+let g:EasyGrepRoot = "search:.git"
+let g:EasyGrepMode = 2
+let g:EasyGrepCommand = 1
+let g:EasyGrepFilesToExclude = "*vendor*"
+let g:EasyGrepEveryMatch = 1
+let g:EasyGrepRecursive = 1
