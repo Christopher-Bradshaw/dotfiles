@@ -59,6 +59,7 @@ set novisualbell
 " numbering
 set relativenumber
 set number
+:highlight LineNr ctermfg=grey
 
 " tabs vs spaces
 set autoindent
@@ -79,7 +80,7 @@ set background=dark
 " Searching and highlighting
 set hlsearch
 set incsearch
-highlight Search cterm=NONE ctermfg=Grey ctermbg=Red
+highlight Search cterm=NONE ctermfg=black ctermbg=lightgray
 nnoremap <expr> N (v:searchforward ? 'N' : 'n')
 nnoremap <expr> n (v:searchforward ? 'n' : 'N')
 
@@ -88,9 +89,25 @@ nnoremap <expr> n (v:searchforward ? 'n' : 'N')
 :au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 :au InsertLeave * match ExtraWhitespace /\s\+$/
 
-" xxx learn how to do this
+" folding
 set foldmethod=indent
 set foldlevelstart=20
+nnoremap <leader>f za
+nnoremap <silent> <leader>jj :call NextClosedFold('j')<cr>
+nnoremap <silent> <leader>jk :call NextClosedFold('k')<cr>
+function! NextClosedFold(dir)
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+        exe cmd
+        let [l0, l] = [l, line('.')]
+        let open = foldclosed(l) < 0
+    endwhile
+    if open
+        call winrestview(view)
+    endif
+endfunction
 
 " mappings
 map Y y$
