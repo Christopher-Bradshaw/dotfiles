@@ -1,67 +1,70 @@
-" Todo
-" CommandT
 set nocompatible
+set shell=/bin/bash
 filetype off
 
-" set the runtime path to include Vundle and initialize          
+" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" Used
 Plugin 'gmarik/Vundle.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'digitaltoad/vim-jade'
-"Plugin 'vim-scripts/AutomaticLaTexPlugin'
-"Plugin 'lervag/vimtex'
-Plugin 'groenewege/vim-less'
+
 Plugin 'suan/vim-instant-markdown'
-Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'fatih/vim-go'
+Plugin 'wincent/command-t'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 
-" Not used
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-scripts/Gundo'
-" Get? 
-" ControlP
+" Language specific
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'fatih/vim-go'
+Plugin 'solarnz/thrift.vim'
 call vundle#end()
 
 filetype plugin indent on
-" would be nice if we could disable this for .md files
 syntax on
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown syntax=off
 
 let mapleader=','
+
+" Don't annoy me
 set noerrorbells
 set novisualbell
 
-" Look back at this in a bit
+" numbering
 set relativenumber
 set number
 
+" tabs vs spaces
 set autoindent
 set expandtab
 set tabstop=2
 set shiftwidth=2
 
+" give me more space in commands and while scrolling
 set scrolloff=5
 set cmdheight=2
 
+" lets you do tab completion in command bar
 set wildmenu
-set incsearch
+
+" Searching and highlighting
 set hlsearch
+set incsearch
 highlight Search cterm=NONE ctermfg=Grey ctermbg=Red
-:highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen  
-:autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/  
+:highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+nnoremap <expr> N (v:searchforward ? 'N' : 'n')
+nnoremap <expr> n (v:searchforward ? 'n' : 'N')
 
+" match whitespace and redraw when leaving/entering insert mode
+:au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+:au InsertLeave * match ExtraWhitespace /\s\+$/
 
-set foldmethod=syntax
+" xxx learn how to do this
+set foldmethod=indent
 set foldlevelstart=20
-
 
 " mappings
 map Y y$
-
 
 " get rid annoying .swp files
 " these dirs must exist
@@ -69,17 +72,12 @@ set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 
-" save the pinky
+" don't hit shift all the time
 noremap ; :
-noremap , ;
 
 " colon commands
 ca tn tabnew
-" This compiles the latex file
-ca t TEX
-
-" Saving is hard
-ca m make
+ca W w
 
 " spellcheck
 ca spell setlocal spell spelllang=en_us
@@ -103,8 +101,11 @@ noremap <Down> <Nop>
 noremap <Right> <Nop>
 noremap <Left> <Nop>
 
-" Shortcut sup and spuer script on md
-ca ss %s/_{/<sub>/eg \| %s/_}/<\/sub>/eg \| %s/\^{/<sup>/eg \| %s/\^}/<\/sup>/eg
+" Move 10 easily
+noremap <leader>j J
+noremap J 10j
+" https://github.com/fatih/vim-go/issues/140
+noremap K 10k
 
-" zeal
-:nnoremap gz :!zeal --query "<cword>"&<CR><CR>
+" backspace refuses to kill linebreaks and things not inserted during this insert?
+set backspace=indent,eol,start
