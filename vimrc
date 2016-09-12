@@ -215,3 +215,8 @@ let g:EasyGrepCommand = 1
 let g:EasyGrepFilesToExclude = "*vendor*"
 let g:EasyGrepEveryMatch = 1
 let g:EasyGrepRecursive = 1
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
