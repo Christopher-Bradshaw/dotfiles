@@ -11,8 +11,8 @@ if [ -f /home/christopher/.dotfiles/home_bashrc ]; then
 fi
 
 # Source work definitions
-if [ -f /home/vagrant/.dotfiles/work_bashrc ]; then
-  source /home/vagrant/.dotfiles/work_bashrc
+if [ -f /home/vagrant/dotfiles/work_bashrc ]; then
+  source /home/vagrant/dotfiles/work_bashrc
 fi
 
 # C compilation and error checking
