@@ -80,6 +80,7 @@ set cmdheight=2
 set wildmenu
 
 " colors
+colorscheme darkblue
 set background=dark
 
 " Searching and highlighting
@@ -90,9 +91,13 @@ nnoremap <expr> N (v:searchforward ? 'N' : 'n')
 nnoremap <expr> n (v:searchforward ? 'n' : 'N')
 
 " match whitespace and redraw when leaving/entering insert mode
-:highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-:au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-:au InsertLeave * match ExtraWhitespace /\s\+$/
+" this appears to not work in vim 8?
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 " folding
 set foldmethod=indent
@@ -184,20 +189,33 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 
+" js/ts/es/[a-z]s
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_typescript_checkers = ['tslint']
+
+" python - pylint is anal
+let g:syntastic_python_checkers = ['python']
+
+" HTML
+" defaults are good, but install `tidy` (package manager)
+
+" CSS
+let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_css_csslint_args = ['--ignore=box-model']
 " **************************** Syntastic ************************************ "
 
 " ctrl-P
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_by_filename = 1
 let g:ctrlp_map = '<leader>p'
+let g:ctrlp_show_hidden = 1
+
 " default to open in
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
     \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
     \ }
 set wildignore+=*/vendor/*
+set wildignore+=*/node_modules/*
 
 " nerdtree
 let g:nerdtree_tabs_open_on_console_startup = 0
@@ -212,12 +230,14 @@ ca gr Grep
 let g:EasyGrepRoot = "search:.git"
 let g:EasyGrepMode = 2
 let g:EasyGrepCommand = 1
-let g:EasyGrepFilesToExclude = "*vendor*"
+let g:EasyGrepFilesToExclude = "vendor"
 let g:EasyGrepEveryMatch = 1
-let g:EasyGrepRecursive = 1
+let g:EasyGrepReplaceWindowMode = 0
+" let g:EasyGrepRecursive = 1
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 set t_Co=256
+:tab sball
