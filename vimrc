@@ -47,6 +47,8 @@ Plugin 'solarnz/thrift.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'rust-lang/rust.vim'
+Plugin 'lervag/vimtex'
 
 call vundle#end()
 " ***************************** Vundle ************************************** "
@@ -202,6 +204,9 @@ let g:syntastic_python_checkers = ['python']
 " CSS
 let g:syntastic_css_checkers = ['csslint']
 let g:syntastic_css_csslint_args = ['--ignore=box-model']
+
+" rust
+" let g:rustfmt_autosave = 1
 " **************************** Syntastic ************************************ "
 
 " ctrl-P
@@ -219,10 +224,10 @@ set wildignore+=*/node_modules/*
 
 " nerdtree
 let g:nerdtree_tabs_open_on_console_startup = 0
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
+map <leader>n <plug>NERDTreeTabsToggle<CR>
 
 " gundo
-nnoremap <Leader>g :GundoToggle<CR>
+nnoremap <leader>g :GundoToggle<CR>
 let g:gundo_preview_bottom = 1
 
 " easygrep
@@ -240,4 +245,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 set t_Co=256
+
+" ycm
+let g:ycm_rust_src_path = '/home/vagrant/rust/src'
+nnoremap <leader>t :YcmCompleter GoTo<CR>
+
+
+" tabs?
 :tab sball
