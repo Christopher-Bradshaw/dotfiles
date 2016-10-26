@@ -82,7 +82,6 @@ set cmdheight=2
 set wildmenu
 
 " colors
-colorscheme darkblue
 set background=dark
 
 " Searching and highlighting
@@ -207,6 +206,7 @@ let g:syntastic_css_csslint_args = ['--ignore=box-model']
 
 " rust
 " let g:rustfmt_autosave = 1
+let g:rustfmt_fail_silently=1
 " **************************** Syntastic ************************************ "
 
 " ctrl-P
