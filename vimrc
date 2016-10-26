@@ -46,6 +46,9 @@ Plugin 'fatih/vim-go'
 Plugin 'solarnz/thrift.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'Quramy/tsuquyomi'
+Plugin 'Shougo/vimproc.vim'
+" Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
 Plugin 'rust-lang/rust.vim'
 Plugin 'lervag/vimtex'
@@ -192,7 +195,10 @@ let g:go_list_type = "quickfix"
 
 " js/ts/es/[a-z]s
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_typescript_checkers = ['tslint']
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tslint', 'eslint', 'tsuquyomi']
+let g:tsuquyomi_definition_split = 3
+let g:tsuquyomi_ignore_missing_modules = 1
 
 " python - pylint is anal
 let g:syntastic_python_checkers = ['python']
